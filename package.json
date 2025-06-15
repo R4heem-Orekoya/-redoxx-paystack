@@ -1,0 +1,19 @@
+{
+  "name": "@redoxx/paystack",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "eslint": "8.57.0",
+    "prettier": "^3.5.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
