@@ -1,10 +1,15 @@
 # @redoxx/paystack
-A developer friendly SDK for Paystack, built with Typescript and Bun.
+
+A developer-friendly SDK for [Paystack](https://paystack.com/docs/api), built with **TypeScript** and powered by **Bun**.
+
+> ⚠️ Currently in early development – breaking changes may occur.
 
 ## Installation
 
 ```bash 
 pnpm add @redoxx/paystack
+# or
+bun add @redoxx/paystack
 ```
 ## Usage
 ```typescript
@@ -19,10 +24,46 @@ const res = await paystack.transaction.initialize({
 
 ```
 
-## Methods
-- transaction.initialize(data)
+## 📦 Available Methods
+- transaction.initialize()
+- transaction.verify()
+- transaction.list()
+- transaction.get()
+- transaction.chargeAuth()
+- transaction.timeLine()
+- transaction.total()
+- transaction.export()
+- transaction.partialDebit()
 
-## Coming Soon
-- transaction.verify(ref)
-- customer.create(data)
-- Webhook signature verification
+## 🧪 Coming Soon
+- ✅ Customer endpoints
+
+- ✅ Webhook signature verification
+
+- 🛠️ Plans, Subscriptions, Terminals, Products
+
+- 🧾 Payment Pages & Requests (low priority)
+
+- 🔍 Verification, Refunds, Disputes, Charges
+
+- 🔁 Integration & Bulk Charges
+
+### 📝 TODO
+- Transaction endpoint still need testing and some return types might not be correct
+- Customer endpoints
+- Plans endpoints
+- Subscription endpoints
+- Terminal endpoints
+- Products endpoints
+- Payment Pages endpoints (low priority)
+- Payment Requests endpoints (low priority)
+- Miscellaneous endpoints
+- Verification endpoints
+- Refunds endpoints
+- Disputes endpoints
+- Charge endpoints (low priority)
+- Integration endpoints
+- Bulk Charges endpoints
+
+#### 🙌 Contributing
+This SDK is currently in active development. Contributions, feedback, and issues are welcome!
