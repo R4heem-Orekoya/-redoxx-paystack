@@ -1,11 +1,64 @@
+import {
+   chargeAuth,
+   exportTransaction,
+   getTransaction,
+   initializeTransaction,
+   listTransactions,
+   transactionPartialDebit,
+   transactionTimeline,
+   transactionTotal,
+   verifyTransaction
+} from "./modules/transaction";
+import {
+   type TRANSACTIONCHARGERESPONSE,
+   type TRANSACTIONCHARGEAUTH,
+   type TRANSACTIONINITDATA,
+   type TRANSACTIONINITRESPONSE,
+   type TRANSACTIONLISTFILTER,
+   type TRANSACTIONLISTRESPONSE,
+   type TRANSACTIONRESPONSE,
+   type TRANSACTIONVERIFICATIONRESPONSE,
+   type TRANSACTIONTIMELINERESPONSE,
+   type TRANSACTIONTOTAL,
+   type TRANSACTIONTOTALSRESPONSE,
+   type TRANSACTIONEXPORT,
+   type TRANSACTIONEXPORTRESPONSE,
+   type TRANSACTIONPARTIALDEBIT,
+   type TRANSACTIONPARTIALDEBITRESPONSE
+} from "./types/transaction";
+
 export class Paystack {
    private apiKey: string
-   
+
    constructor({ apiKey }: { apiKey: string }) {
-      if(apiKey) {
+      if (!apiKey) {
          throw new Error("Paystack API key not found!")
       }
-      
+
       this.apiKey = apiKey
+   }
+
+   transaction = {
+      initialize: (data: TRANSACTIONINITDATA) => initializeTransaction<TRANSACTIONINITRESPONSE | null>({ apiKey: this.apiKey, data }),
+      verify: (reference: string) => verifyTransaction<TRANSACTIONVERIFICATIONRESPONSE | null>({ apiKey: this.apiKey, reference }),
+      list: (filter?: TRANSACTIONLISTFILTER) => listTransactions<TRANSACTIONLISTRESPONSE | null>({ apiKey: this.apiKey, filter }),
+      get: (transactionId: number) => getTransaction<TRANSACTIONRESPONSE | null>({ apiKey: this.apiKey, transactionId }),
+      chargeAuth: (data: TRANSACTIONCHARGEAUTH) => chargeAuth<TRANSACTIONCHARGERESPONSE | null>({ apiKey: this.apiKey, data }),
+      timeLine: (options: { id: number; reference?: never } | { reference: string; id?: never }) => {
+         if (options.id) {
+            return transactionTimeline<TRANSACTIONTIMELINERESPONSE | null>({
+               apiKey: this.apiKey,
+               id: options.id,
+            });
+         } else if (options.reference) {
+            return transactionTimeline<TRANSACTIONTIMELINERESPONSE | null>({
+               apiKey: this.apiKey,
+               reference: options.reference,
+            });
+         }
+      },
+      total: (data?: TRANSACTIONTOTAL) => transactionTotal<TRANSACTIONTOTALSRESPONSE | null>({ apiKey: this.apiKey, data }),
+      export: (data?: TRANSACTIONEXPORT) => exportTransaction<TRANSACTIONEXPORTRESPONSE | null>({ apiKey: this.apiKey, data }),
+      partialDebit: (data: TRANSACTIONPARTIALDEBIT) => transactionPartialDebit<TRANSACTIONPARTIALDEBITRESPONSE | null>({ apiKey: this.apiKey, data })
    }
 }
