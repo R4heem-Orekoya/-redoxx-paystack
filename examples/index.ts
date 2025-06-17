@@ -5,15 +5,13 @@ const paystack = new Paystack({
 })
 
 try {
-   const res = await paystack.transaction.partialDebit({
-      amount: 3000,
-      authorization_code: "AUTH_n4m8jgkqd3",
-      currency: "NGN",
-      email: "customer@email.com"
+   const res = await paystack.customer.get({
+      customerCode: "CUS_x9k9hh7qo9wejcd"
    })
+
    console.dir(res, { depth: null });
 } catch (error) {
-   if(error instanceof Error) {
+   if (error instanceof Error) {
       console.dir(error, { depth: null });
    }
 }

@@ -1,3 +1,4 @@
+import { createCustomer, deactivateCustomerAuth, fetchCustomer, listCustomers, setCustomerRiskAction, updateCustomer, verifyCustomer } from "./modules/customer";
 import {
    chargeAuth,
    exportTransaction,
@@ -9,6 +10,21 @@ import {
    transactionTotal,
    verifyTransaction
 } from "./modules/transaction";
+import type { 
+   CREATECUSTOMERDATA, 
+   CREATECUSTOMERRESPONSE, 
+   DEACTIVATECUSTOMERAUTHDATA, 
+   DEACTIVATECUSTOMERAUTHRESPONSE, 
+   FETCHCUSTOMERRESPONSE, 
+   LISTCUSTOMERDATA, 
+   LISTCUSTOMERRESPONSE, 
+   SETCUSTOMERRISKACTIONDATA, 
+   SETCUSTOMERRISKACTIONRESPONSE, 
+   UPDATECUSTOMERDATA,
+   UPDATECUSTOMERRESPONSE,
+   VERIFYCUSTOMERDATA,
+   VERIFYCUSTOMERRESPONSE
+} from "./types/customer";
 import {
    type TRANSACTIONCHARGERESPONSE,
    type TRANSACTIONCHARGEAUTH,
@@ -42,7 +58,7 @@ export class Paystack {
       initialize: (data: TRANSACTIONINITDATA) => initializeTransaction<TRANSACTIONINITRESPONSE | null>({ apiKey: this.apiKey, data }),
       verify: (reference: string) => verifyTransaction<TRANSACTIONVERIFICATIONRESPONSE | null>({ apiKey: this.apiKey, reference }),
       list: (filter?: TRANSACTIONLISTFILTER) => listTransactions<TRANSACTIONLISTRESPONSE | null>({ apiKey: this.apiKey, filter }),
-      get: (transactionId: number) => getTransaction<TRANSACTIONRESPONSE | null>({ apiKey: this.apiKey, transactionId }),
+      get: ({ transactionId }:{ transactionId: number }) => getTransaction<TRANSACTIONRESPONSE | null>({ apiKey: this.apiKey, transactionId }),
       chargeAuth: (data: TRANSACTIONCHARGEAUTH) => chargeAuth<TRANSACTIONCHARGERESPONSE | null>({ apiKey: this.apiKey, data }),
       timeLine: (options: { id: number; reference?: never } | { reference: string; id?: never }) => {
          if (options.id) {
@@ -60,5 +76,15 @@ export class Paystack {
       total: (data?: TRANSACTIONTOTAL) => transactionTotal<TRANSACTIONTOTALSRESPONSE | null>({ apiKey: this.apiKey, data }),
       export: (data?: TRANSACTIONEXPORT) => exportTransaction<TRANSACTIONEXPORTRESPONSE | null>({ apiKey: this.apiKey, data }),
       partialDebit: (data: TRANSACTIONPARTIALDEBIT) => transactionPartialDebit<TRANSACTIONPARTIALDEBITRESPONSE | null>({ apiKey: this.apiKey, data })
+   }
+   
+   customer = {
+      create: (data: CREATECUSTOMERDATA) => createCustomer<CREATECUSTOMERRESPONSE | null>({ apiKey: this.apiKey, data }),
+      list: (data?: LISTCUSTOMERDATA) => listCustomers<LISTCUSTOMERRESPONSE | null>({ apiKey: this.apiKey, data }),
+      get: ({ customerCode }: { customerCode: string }) => fetchCustomer<FETCHCUSTOMERRESPONSE | null>({ apiKey: this.apiKey, customerCode}),
+      update: ({ customerCode, data }: { customerCode: string, data: UPDATECUSTOMERDATA }) => updateCustomer<UPDATECUSTOMERRESPONSE | null>({ apiKey: this.apiKey, customerCode, data }),
+      verify: ({ customerCode, data }: { customerCode: string; data: VERIFYCUSTOMERDATA }) => verifyCustomer<VERIFYCUSTOMERRESPONSE | null>({ apiKey: this.apiKey, customerCode, data }),
+      setRiskAction: (data: SETCUSTOMERRISKACTIONDATA) => setCustomerRiskAction<SETCUSTOMERRISKACTIONRESPONSE | null>({ apiKey: this.apiKey, data }),
+      deactivateAuth: (data: DEACTIVATECUSTOMERAUTHDATA) => deactivateCustomerAuth<DEACTIVATECUSTOMERAUTHRESPONSE | null>({ apiKey: this.apiKey, data })
    }
 }
