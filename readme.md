@@ -12,6 +12,7 @@ pnpm add @redoxx/paystack
 bun add @redoxx/paystack
 ```
 ## Usage
+
 ```typescript
 
 import { Paystack } from "@redoxx/paystack"
@@ -25,18 +26,28 @@ const res = await paystack.transaction.initialize({
 ```
 
 ## 📦 Available Methods
-- transaction.initialize()
-- transaction.verify()
-- transaction.list()
-- transaction.get()
-- transaction.chargeAuth()
-- transaction.timeLine()
-- transaction.total()
-- transaction.export()
-- transaction.partialDebit()
+
+- Transaction
+   - transaction.initialize()
+   - transaction.verify()
+   - transaction.list()
+   - transaction.get()
+   - transaction.chargeAuth()
+   - transaction.timeLine()
+   - transaction.total()
+   - transaction.export()
+   - transaction.partialDebit()
+
+- Customer
+   - customer.create()
+   - customer.list()
+   - customer.get()
+   - customer.update()
+   - customer.verify()
+   - customer.setRiskAction()
+   - customer.deactivateAuth()
 
 ## 🧪 Coming Soon
-- ✅ Customer endpoints
 
 - ✅ Webhook signature verification
 
@@ -48,9 +59,11 @@ const res = await paystack.transaction.initialize({
 
 - 🔁 Integration & Bulk Charges
 
-### 📝 TODO
+## 📝 TODO
+
 - Transaction endpoint still need testing and some return types might not be correct
-- Customer endpoints
+- Test customer.verify endpoint manually
+- Add jsDoc for all endpoints
 - Plans endpoints
 - Subscription endpoints
 - Terminal endpoints
@@ -65,5 +78,6 @@ const res = await paystack.transaction.initialize({
 - Integration endpoints
 - Bulk Charges endpoints
 
-#### 🙌 Contributing
+### 🙌 Contributing
+
 This SDK is currently in active development. Contributions, feedback, and issues are welcome!

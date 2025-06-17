@@ -1,3 +1,5 @@
+import type { Customer } from "./customer"
+
 export interface TRANSACTIONINITDATA {
    amount: number;
    email: string;
@@ -82,13 +84,13 @@ export interface TRANSACTIONINITRESPONSE {
 export interface TRANSACTIONVERIFICATIONRESPONSE {
    status: boolean;
    message: string;
-   data: PaystackTransaction;
+   data: Transaction;
 };
 
 export interface TRANSACTIONLISTRESPONSE {
    status: boolean;
    message: string;
-   data: PaystackTransaction[];
+   data: Transaction[];
    meta: {
       total: number,
       total_volume: number,
@@ -102,7 +104,7 @@ export interface TRANSACTIONLISTRESPONSE {
 export interface TRANSACTIONRESPONSE {
    status: boolean;
    message: string;
-   data: PaystackTransaction;
+   data: Transaction;
 }
 
 export interface TRANSACTIONCHARGERESPONSE {
@@ -230,8 +232,7 @@ export type TRANSACTIONPARTIALDEBITRESPONSE = {
    };
 };
 
-
-export interface PaystackTransaction {
+export interface Transaction {
    id: number;
    domain: string;
    status: string;
@@ -300,18 +301,6 @@ export interface Authorization {
    reusable: boolean;
    signature: string | null;
    account_name: string | null;
-}
-
-export interface Customer {
-   id: number;
-   first_name: string | null;
-   last_name: string | null;
-   email: string;
-   customer_code: string;
-   phone: string | null;
-   metadata: Record<string, any> | null;
-   risk_action: string;
-   international_format_phone?: string | null;
 }
 
 export type Channels = ["card", "bank", "apple_pay", "ussd", "qr", "mobile_money", "bank_transfer", "eft"]
