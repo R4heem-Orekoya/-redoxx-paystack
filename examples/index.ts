@@ -5,8 +5,8 @@ const paystack = new Paystack({
 })
 
 try {
-   const res = await paystack.customer.get({
-      customerCode: "CUS_x9k9hh7qo9wejcd"
+   //@ts-ignore
+   const res = await paystack.transaction.timeLine({
    })
 
    console.dir(res, { depth: null });

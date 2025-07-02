@@ -1,4 +1,5 @@
 import type { TRANSACTIONCHARGEAUTH, TRANSACTIONEXPORT, TRANSACTIONINITDATA, TRANSACTIONLISTFILTER, TRANSACTIONPARTIALDEBIT, TRANSACTIONTOTAL } from "../types/transaction";
+import type { TimelineOptionsWithId, TimelineOptionsWithReference } from "../types/utils";
 import { request } from "../utils/request";
 
 export async function initializeTransaction<T>({
@@ -77,8 +78,8 @@ export async function chargeAuth<T>({
 
 export async function transactionTimeline<T>({
    apiKey, id, reference
-}: { apiKey: string; id: number; reference?: never }
-   | { apiKey: string; reference: string; id?: never }
+}: TimelineOptionsWithReference & { apiKey: string }
+   | TimelineOptionsWithId & { apiKey: string }
 ) {
    const identifier = id ?? reference;
 
